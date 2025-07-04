@@ -21,9 +21,9 @@ def block_to_html_node(block):
         lines = block.split("\n")
         new_block = ""
         for line in lines:
-            new_block.append(line[1:])
+            new_block = new_block + line[2:] + " "
             # children.append(text_to_htmlnodes(line))
-        return_node = ParentNode("blockquote", text_to_htmlnodes(new_block))
+        return_node = ParentNode("blockquote", text_to_htmlnodes(new_block[:-1]))
     elif block_type == BlockType.ULIST:
         children = []
         lines = block.split("\n")
@@ -35,10 +35,12 @@ def block_to_html_node(block):
             
     elif block_type == BlockType.OLIST:
         children = []
+        i = 1
         lines = block.split("\n")
         for line in lines:
-            line = line[3:]
+            line = line[len(str(i))+2:]
             children.append(ParentNode("li",text_to_htmlnodes(line)))
+            i += 1
         return_node = ParentNode("ol", children)
         
         
@@ -71,7 +73,7 @@ def block_to_html_node(block):
         else: raise Exception("Error in block_to_html_node at heading")
         
         new_block = block[heading_level+1:]
-        new_block.replace("\n", "")
+        new_block = new_block.replace("\n", "")
         
         return_node = ParentNode(f"h{heading_level}", text_to_htmlnodes(new_block))
         
