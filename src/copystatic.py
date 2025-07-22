@@ -1,8 +1,6 @@
-from textnode import *
 
 import os
 import shutil
-
 
 def copy_files(path_from, path_to):
     
@@ -26,16 +24,7 @@ def copy_files(path_from, path_to):
         # print(destination)
         copy_files(source, destination)
     
-    
-    
         
     
     
     
-
-def main():
-    
-    shutil.rmtree("./public")
-    copy_files("./static", "./public")
-   
-main()
